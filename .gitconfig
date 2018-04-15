@@ -1,0 +1,39 @@
+[user]
+  name = bziraoui
+  email = b_ziraoui@hotmail.fr
+
+[alias]
+    st = status
+    ci = commit
+    cm = commit -m
+    amend = commit --amend
+    erf = commit --amend --no-edit
+    co = checkout
+    cp = cherry-pick
+    rb = rebase
+    rbc = rebase --continue
+    pur = pull --rebase
+    pop  = stash pop
+    lg = log --pretty=oneline --abbrev-commit --graph --decorate
+    lc = !git oneline ORIG_HEAD.. --stat --no-merges
+    undo = !git reset --soft HEAD^
+    br = branch
+
+[color]
+    ui = auto
+  [color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+  [color "diff"]
+    meta = yellow
+    frag = magenta
+    old = red
+    new = green
+    whitespace = red reverse
+  [color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+  [core]
+    whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
