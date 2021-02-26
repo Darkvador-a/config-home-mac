@@ -6,12 +6,21 @@ parse_git_branch() {
 # Make Git branch a variable
 branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
+# Add context|namespace kubernet
+#
+# Source: https://github.com/jonmosco/kube-ps1
+source "/usr/local/opt/kube-ps1/share/kube-ps1.sh"
+
+PS1='$(kube_ps1)\[\033[01;31m\]\w\[\033[00m\]\n${debian_chroot:+($debian_chroot)}\[\033[01;34m\]\u\[\033[01;32m\]@\[\033[01;34m\]\h\[\033[00m\]\$ '
 # Custom bash prompt
 #
 # Includes custom character for the prompt, path, and Git branch name.
 #
 # Source: kirsle.net/wizards/ps1.html
-export PS1="\n\[$(tput bold)\]\[$(tput setaf 5)\]➜ \[$(tput setaf 6)\]\w\[$(tput setaf 3)\]\$(parse_git_branch) \[$(tput sgr0)\]"
+export PS1="$PS1\[$(tput setaf 3)\]\$(parse_git_branch)\[$(tput sgr0)\]"
+
+
+
 
 export PATH=/opt/local/bin:/opt/local/sbin:${PATH}
 
@@ -39,6 +48,7 @@ alias fp='fetch && pull'
 alias gmm='git merge master'
 alias recent='git for-each-ref --sort=-committerdate refs/heads/'
 alias branch_new="git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)'"
+alias rm-branch="git branch --merged | egrep -v \"(^\*|master|main|dev)\" | xargs git branch -d"
 
 ## Git branch switching
 alias master='git co master'
